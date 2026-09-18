@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "language": "pt-BR",
+  "manually_reviewed": true,
+  "reviewed_by": "synthetic-test",
+  "reviewed_at": "2026-07-18T00:00:00Z",
+  "glossary_terms": ["Ana", "LinguaRelay"],
+  "numbers": ["42"],
+  "segments": [
+    {
+      "id": "ref-1",
+      "start": 0.0,
+      "end": 2.0,
+      "text": "Olá, meu nome é Ana.",
+      "confidence": 1.0,
+      "uncertainty": []
+    },
+    {
+      "id": "ref-2",
+      "start": 2.1,
+      "end": 4.8,
+      "text": "O LinguaRelay processa 42 exemplos.",
+      "confidence": 1.0,
+      "uncertainty": []
+    }
+  ]
+}

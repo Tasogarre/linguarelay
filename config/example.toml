@@ -1,0 +1,80 @@
+schema_version = 1
+
+[paths]
+jobs_root = "~/.local/share/linguarelay/jobs"
+
+[languages]
+source = "pt-BR"
+target = "en"
+
+[media]
+ffmpeg = "ffmpeg"
+ffprobe = "ffprobe"
+audio_sample_rate = 16000
+audio_channels = 1
+asr_chunk_seconds = 600
+representative_clip_seconds = 45
+representative_clip_positions = [0.12, 0.50, 0.82]
+
+[asr]
+mode = "single"
+candidates = ["openai_whisper"]
+require_manually_reviewed_reference = false
+winner_primary_metric = "wer"
+
+[asr.providers.deepgram]
+kind = "deepgram"
+model = "nova-3"
+api_key_env = "DEEPGRAM_API_KEY"
+
+[asr.providers.openai_whisper]
+kind = "openai_whisper"
+model = "whisper-1"
+api_key_env = "OPENAI_API_KEY"
+
+[translation]
+provider = "openai_translation"
+batch_size = 40
+
+[translation.providers.openai_translation]
+kind = "openai_responses"
+model = "gpt-5-mini"
+api_key_env = "OPENAI_API_KEY"
+reasoning_effort = "low"
+
+[translation.providers.ollama_local]
+kind = "ollama"
+model = "gemma4-e4b:latest"
+endpoint = "http://127.0.0.1:11434/api/chat"
+
+[subtitles]
+formats = ["srt", "vtt"]
+max_chars_per_line = 42
+max_lines = 2
+max_chars_per_second = 20.0
+min_cue_seconds = 1.0
+max_cue_seconds = 7.0
+minimum_gap_seconds = 0.08
+font_path = ""
+font_size_ratio = 0.046
+bottom_margin_ratio = 0.075
+
+[render]
+video_codec = "libx264"
+crf = 18
+preset = "medium"
+audio_codec = "copy"
+soft_container = "mp4"
+
+[quality]
+max_wer = 0.20
+max_cer = 0.14
+min_number_recall = 1.0
+min_glossary_term_recall = 1.0
+min_timing_iou = 0.50
+max_duration_drift_seconds = 0.35
+minimum_translation_coverage = 1.0
+minimum_confidence = 0.65
+frame_sample_count = 3
+minimum_burned_frame_difference_ratio = 0.002
+smoke_decode_seconds = 8
