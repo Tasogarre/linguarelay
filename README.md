@@ -90,6 +90,15 @@ uv build --no-sources
 
 Tests use synthetic fixtures and do not require provider credentials.
 
+CI checks the runner's FFmpeg encoders, decoders and filters, then encodes,
+probes and decodes a short synthetic clip before deciding whether apt provisioning
+is needed. A missing capability or an uncertain/failed probe takes the existing
+apt update/install path and must pass a fresh probe afterwards. This is partial
+runner readiness only: the full test suite and distribution build still run.
+Run the same readiness check locally with `uv run python scripts/check-ci-ffmpeg.py`.
+Temporary synthetic media is removed on success or failure. This change targets
+setup latency; no rounded Actions billing saving has been established.
+
 ## Documentation
 
 - [Pipeline architecture](docs/architecture/pipeline.md)
