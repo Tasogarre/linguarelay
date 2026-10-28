@@ -35,10 +35,13 @@ jobs:
       - name: Install locked dependencies
         run: uv sync --locked --all-extras --dev
 
-      - name: Install FFmpeg
+      - name: Ensure FFmpeg capabilities
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes ffmpeg
+          if ! uv run python scripts/check-ci-ffmpeg.py; then
+            sudo apt-get update
+            sudo apt-get install --yes ffmpeg
+            uv run python scripts/check-ci-ffmpeg.py
+          fi
 
       - name: Run tests
         run: uv run pytest -q
